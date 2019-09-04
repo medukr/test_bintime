@@ -9,6 +9,7 @@ namespace app\controllers;
 
 
 use app\models\Address;
+use app\models\UserAndAddressForm;
 use app\models\Users;
 use app\models\UsersSearch;
 use Yii;
@@ -38,14 +39,14 @@ class MyController extends Controller
 
 
     public function actionCreate(){
-        $model = new Users();
 
+        $model = new UserAndAddressForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->create()) {
+            return $this->redirect(['view', 'id' => $model->user_id]);
         }
 
-        return $this->render('create', [
+        return $this->render('una_create', [
             'model' => $model,
         ]);
     }

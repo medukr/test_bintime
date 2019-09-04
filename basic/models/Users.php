@@ -37,12 +37,15 @@ class Users extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['login', 'password', 'name', 'last_name', 'sex', 'created_ad', 'email'], 'required'],
+            [['login', 'password', 'name', 'last_name', 'sex', 'email'], 'required'],
+            [['name', 'last_name', 'email'], 'trim'],
             [['sex'], 'integer'],
             [['created_ad'], 'safe'],
-            [['login', 'password', 'name', 'last_name', 'email'], 'string', 'max' => 255],
+            [['name', 'last_name', 'email'], 'string', 'max' => 255],
             [['login'], 'unique'],
             [['email'], 'unique'],
+            [['login'], 'string', 'length' => [4, 255]],
+            [['password'], 'string', 'length' => [6, 255]]
         ];
     }
 
@@ -64,6 +67,17 @@ class Users extends \yii\db\ActiveRecord
     public function getAddress(){
         return $this->hasMany(Address::class, ['user_id' => 'id']);
     }
+
+
+
+    public static function findWithAddress($id){
+        return self::find()
+            ->where('id = :id', [':id' => $id])
+            ->with('address')
+            ->one();
+    }
+
+
     /**
      * {@inheritdoc}
      */
@@ -71,12 +85,12 @@ class Users extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'login' => 'Login',
-            'password' => 'Password',
-            'name' => 'Name',
-            'last_name' => 'Last Name',
-            'sex' => 'Sex',
-            'created_ad' => 'Created Ad',
+            'login' => 'Логин',
+            'password' => 'Пароль',
+            'name' => 'Имя',
+            'last_name' => 'Фамилия',
+            'sex' => 'Пол',
+            'created_ad' => 'Дата добавления',
             'email' => 'Email',
         ];
     }
