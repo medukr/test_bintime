@@ -18,9 +18,9 @@ class m190904_171942_create_users_table extends Migration
             'password' => $this->string()->notNull(),
             'name' => $this->string()->notNull(),
             'last_name' => $this->string()->notNull(),
-            'sex' => $this->integer(1)->defaultValue(0),
-            'created_ad' => $this->timestamp()->notNull(),
-            'email' => $this->string()->notNull()
+            'sex' => $this->integer(1)->notNull(),
+            'created_ad' => $this->dateTime()->notNull(),
+            'email' => $this->string()->notNull()->unique()
         ]);
     }
 
