@@ -58,6 +58,7 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
+    <?= (new Alert())->run() ?>
     <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

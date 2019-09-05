@@ -18,6 +18,10 @@ use Yii;
  */
 class Address extends \yii\db\ActiveRecord
 {
+    const IS_ENABLE = 1;
+    const IS_DISABLE = 0;
+
+
     /**
      * {@inheritdoc}
      */
@@ -42,6 +46,12 @@ class Address extends \yii\db\ActiveRecord
 
     public function getUser(){
         return $this->hasOne(Users::class, ['id' => 'user_id']);
+    }
+
+    public function disable(){
+//       $this->is_active = static::IS_DISABLE;
+
+       return $this->update();
     }
 
     /**

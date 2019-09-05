@@ -20,7 +20,6 @@ use yii\web\NotFoundHttpException;
 class MyController extends Controller
 {
 
-
     public function actionIndex(){
         $searchModel = new UsersSearch();
 
@@ -35,62 +34,6 @@ class MyController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
-    }
-
-
-    public function actionCreate(){
-
-        $model = new UserAndAddressForm();
-
-        if ($model->load(Yii::$app->request->post()) && $model->create()) {
-            return $this->redirect(['view', 'id' => $model->user_id]);
-        }
-
-        return $this->render('una_create', [
-            'model' => $model,
-        ]);
-    }
-
-
-    public function actionView($id)
-    {
-
-        $model = $this->findModel($id);
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $model->getAddress(),
-            'pagination' => [
-                'pageSize' => 5,
-            ],
-        ]);
-        return $this->render('view', [
-            'model' => $model,
-            'dataProvider' => $dataProvider,
-        ]);
-
-    }
-
-
-    public function actionUpdate($id){
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-
-    protected function findModel($id)
-    {
-        if (($model = Users::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
     }
 
 }

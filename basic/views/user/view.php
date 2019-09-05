@@ -2,6 +2,7 @@
 
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -41,8 +42,26 @@ $this->params['breadcrumbs'][] = $this->title;
             'street',
             'house',
 
-//            ['class' => 'yii\grid\ActionColumn']
+            ['class' => 'yii\grid\ActionColumn',
+                'template' => '{update} {delete}',
+                'buttons' => [
+                    'update' => function ($url, $model, $key) {
+                        return Html::a('<i class="glyphicon glyphicon-pencil"></i>',
+                            Url::to(['address/update', 'id' => $model->id])
+                        );
+                    },
+                    'delete' => function ($url, $model, $key) {
+                        return Html::a('<i class="glyphicon glyphicon-trash"></i>',
+                            Url::to(['address/delete', 'id' => $model->id])
+                        );
+                    },
+                ]
+            ]
         ],
     ]); ?>
+
+    <p>
+        <?= Html::a('Добавить адресс', ['add'], ['class' => 'btn btn-success']) ?>
+    </p>
 
 </div>
