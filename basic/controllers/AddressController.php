@@ -21,7 +21,7 @@ class AddressController extends Controller
         $model = new Address();
         $user = $this->findUserModel($id);
 
-        if (!empty($user) && $model->load(\Yii::$app->request->post())){
+        if (!empty($user) && $model->load(Yii::$app->request->post())){
             print_r('address Create');
             die;
         }
@@ -31,17 +31,19 @@ class AddressController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Адресс успешно обновлен');
-            return $this->redirect(['user/view', 'id' => $model->id]);
-        } else {
-            Yii::$app->session->setFlash('success', 'Ошибка при обновлении адресса');
+            if ($model->save()){
+                Yii::$app->session->setFlash('success', 'Адресс успешно обновлен');
+                return $this->redirect(['user/view', 'id' => $model->id]);
+            }else {
+                Yii::$app->session->setFlash('success', 'Ошибка при обновлении адресса');
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
         ]);
     }
-
+//have to be POST
     public function actionDelete($id){
 
         $model = $this->findModel($id);

@@ -10,7 +10,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Users */
 
-$this->title = 'Добавить пользователя';
+$this->title = 'Добавить пользователя:';
+
+$this->params['breadcrumbs'][] = 'Create';
 
 ?>
 <div class="users-create">
