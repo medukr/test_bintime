@@ -51,7 +51,7 @@ class Address extends \yii\db\ActiveRecord
     public function disable(){
        $this->is_active = static::IS_DISABLE;
 
-       return $this->update();
+       return $this->save();
     }
 
     /**

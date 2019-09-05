@@ -16,13 +16,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <?= Html::a('Измеить данные пользователя',
+        Url::to(['user/update', 'id' => $model->id]),
+        ['class' => 'btn btn-success']
+    ); ?>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
             'login',
-            'password',
+//            'password',
             'name',
             'last_name',
             'sex',
@@ -42,17 +46,22 @@ $this->params['breadcrumbs'][] = $this->title;
             'house',
 
             ['class' => 'yii\grid\ActionColumn',
-                'template' => '{update} {delete}',
+                'template' => '{update}{delete}',
                 'buttons' => [
                     'update' => function ($url, $model, $key) {
                         return Html::a('<i class="glyphicon glyphicon-pencil"></i>',
-                            Url::to(['address/update', 'id' => $model->id])
+                            Url::to(['address/update', 'id' => $model->id]),
+                                ['class' => 'btn btn-success']
                         );
                     },
                     'delete' => function ($url, $model, $key) {
-                        return Html::a('<i class="glyphicon glyphicon-trash"></i>',
-                            Url::to(['address/delete', 'id' => $model->id])
-                        );
+                        return Html::beginForm(['address/delete', 'id' => $model->id], 'post', ['enctype' => 'multipart/form-data'])
+                            . Html::input('hidden', 'id', $model->id)
+                            . Html::submitButton('<i class="glyphicon glyphicon-trash"></i>', ['class' => 'btn btn-danger',
+                                'data' => [
+                                        'confirm' => 'Вы уверены, что хотите удалить этот адрес'
+                                ]])
+                            . Html::endForm();
                     },
                 ]
             ]
@@ -60,7 +69,6 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 
     <p>
-        <?= Html::a('Добавить адресс', ['add'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить адресс', ['address/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
     </p>
-
 </div>

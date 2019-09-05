@@ -21,45 +21,55 @@ class AddressController extends Controller
         $model = new Address();
         $user = $this->findUserModel($id);
 
-        if (!empty($user) && $model->load(Yii::$app->request->post())){
-            print_r('address Create');
-            die;
+        if ($model->load(Yii::$app->request->post())){
+
+            $model->user_id = $user->id;
+
+            if ($model->save()){
+                Yii::$app->session->setFlash('success', 'Адресс успешно добавлен');
+                return $this->redirect(['user/view', 'id' => $model->user_id]);
+            }else {
+                Yii::$app->session->setFlash('success', 'Ошибка при добавления адресса');
+            }
         }
+
+        return $this->render('create', ['model' => $model,
+            'user' => $user]);
     }
 
     public function actionUpdate($id){
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
             if ($model->save()){
                 Yii::$app->session->setFlash('success', 'Адресс успешно обновлен');
-                return $this->redirect(['user/view', 'id' => $model->id]);
+                return $this->redirect(['user/view', 'id' => $model->user_id]);
             }else {
                 Yii::$app->session->setFlash('success', 'Ошибка при обновлении адресса');
             }
+
         }
 
         return $this->render('update', [
             'model' => $model,
         ]);
     }
-//have to be POST
+
     public function actionDelete($id){
 
-        $model = $this->findModel($id);
+        if (Yii::$app->request->post() && Yii::$app->request->validateCsrfToken()) {
 
-        if (!empty($model)){
+            $model = $this->findModel(Yii::$app->request->post('id'));
 
-            if  ($model->disable()) {
+            if ($model->disable()) {
                 Yii::$app->session->setFlash('success', 'Адресс успешно удален');
             } else {
-                Yii::$app->session->setFlash('error', 'Ошибка! Действие не удалось');
+                Yii::$app->session->setFlash('error', 'Ошибка! Не удалось удалить');
             }
-
-
         }
-        return $this->redirect(['user/view' , 'id' => $model->user_id]);
 
+        return $this->redirect(['user/view' , 'id' => $model->user_id]);
     }
 
 

@@ -23,7 +23,7 @@ class UserController extends Controller
 
         $model = new UserAndAddressForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->create()) {
+        if ($model->load(Yii::$app->request->post())) {
 
             if ($model->create()){
                 Yii::$app->session->setFlash('success', 'Пользователь успешно добавлен');
@@ -75,19 +75,19 @@ class UserController extends Controller
 
     //have to be POST
     public function actionDelete($id){
-        $model = $this->findModel($id);
 
-        if (!empty($model)){
+        if (Yii::$app->request->post() && Yii::$app->request->validateCsrfToken()){
+
+            $model = $this->findModel(Yii::$app->request->post('id'));
 
             if  ($model->disable()) {
-                Yii::$app->session->setFlash('success', 'Адресс успешно удален');
+                Yii::$app->session->setFlash('success', 'Пользователь успешно удален');
             } else {
-                Yii::$app->session->setFlash('error', 'Ошибка! Действие не удалось');
+                Yii::$app->session->setFlash('error', 'Ошибка! Не удалось удалить пользователя');
             }
-
-
         }
-        return $this->redirect(['user/view' , 'id' => $model->id]);
+
+        return $this->redirect('/');
     }
 
     protected function findModel($id)
