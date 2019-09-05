@@ -18,10 +18,14 @@ use yii\db\Expression;
  * @property int $sex
  * @property string $created_ad
  * @property string $email
+ * @property int $is_active
  */
 class Users extends \yii\db\ActiveRecord
 {
 
+
+    const IS_ENABLE = 1;
+    const IS_DISABLE = 0;
 
     /**
      * {@inheritdoc}
@@ -75,6 +79,12 @@ class Users extends \yii\db\ActiveRecord
             ->where('id = :id', [':id' => $id])
             ->with('address')
             ->one();
+    }
+
+    public function disable(){
+
+        $this->is_active = static::IS_DISABLE;
+        return $this->save();
     }
 
 
