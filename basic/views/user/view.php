@@ -26,7 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'login',
-//            'password',
             'name',
             'last_name',
             'sex',
@@ -51,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'update' => function ($url, $model, $key) {
                         return Html::a('<i class="glyphicon glyphicon-pencil"></i>',
                             Url::to(['address/update', 'id' => $model->id]),
-                                ['class' => 'btn btn-success']
+                            ['class' => 'btn btn-success']
                         );
                     },
                     'delete' => function ($url, $model, $key) {
@@ -59,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             . Html::input('hidden', 'id', $model->id)
                             . Html::submitButton('<i class="glyphicon glyphicon-trash"></i>', ['class' => 'btn btn-danger',
                                 'data' => [
-                                        'confirm' => 'Вы уверены, что хотите удалить этот адрес'
+                                    'confirm' => 'Вы уверены, что хотите удалить этот адрес'
                                 ]])
                             . Html::endForm();
                     },

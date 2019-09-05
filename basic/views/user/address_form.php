@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin( ['method' => 'post']); ?>
 
-    <?= $form->field($model, 'login')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'login')->textInput(['maxlength' => true])->label('* Логин:') ?>
 
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 
@@ -34,7 +34,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'sex')->textInput() ?>
+    <?= $form->field($model, 'sex')->radioList([1 => 'Мужской', 2 => 'Женский'])->label('Укажите пол') ?>
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 

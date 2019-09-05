@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'sex')->textInput() ?>
+    <?= $form->field($model, 'sex')->radioList([1 => 'Мужской', 2 => 'Женский'])->label('Укажите пол') ?>
     
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 

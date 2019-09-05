@@ -50,6 +50,7 @@ class UserAndAddressForm extends Model
             [['post_index', 'country', 'city', 'street', 'house'], 'required'],
             [['user_id', 'office'], 'integer'],
             [['post_index'], 'string', 'max' => 5],
+            [['post_index'], 'integer'],
             [['country'], 'string', 'max' => 2],
             [['city', 'street', 'house'], 'string', 'max' => 255],
         ];
@@ -115,7 +116,21 @@ class UserAndAddressForm extends Model
 
     public function attributeLabels()
     {
+        return [
 
+            'login' => 'Логин',
+            'password' => 'Пароль',
+            'name' => 'Имя',
+            'last_name' => 'Фамилия',
+            'sex' => 'Пол',
+            'email' => 'Email',
+            'post_index' => 'Почтовый индекс',
+            'country' => 'Страна',
+            'city' => 'Город',
+            'street' => 'Улица',
+            'house' => 'Дом',
+            'office' => 'Оффис/Квартира',
+        ];
     }
 
 

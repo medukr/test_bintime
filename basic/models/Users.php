@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\components\{AppHtmlentitiesBehavior, AppUserSexBehavior};
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -26,6 +27,10 @@ class Users extends \yii\db\ActiveRecord
 
     const IS_ENABLE = 1;
     const IS_DISABLE = 0;
+
+//    const SEX_NAN = 0;
+    const SEX_MAN = 1;
+    const SEX_WOMAN = 2;
 
     /**
      * {@inheritdoc}
@@ -64,24 +69,42 @@ class Users extends \yii\db\ActiveRecord
                     ActiveRecord::EVENT_BEFORE_INSERT => ['created_ad']
                 ],
                 'value' => new  Expression('NOW()')
+            ],
+            [
+                'class' => AppHtmlentitiesBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['name', 'last_name'],
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['name', 'last_name'],
+                    ActiveRecord::EVENT_AFTER_FIND => ['name', 'last_name'],
+                ],
+            ],
+            [
+                'class' => AppUserSexBehavior::class,
+                'attributes' => (function () {
+                    return Yii::$app->requestedAction->id !== 'update' && Yii::$app->requestedAction->id !== 'create'
+                        ? [ActiveRecord::EVENT_AFTER_FIND => ['sex']]
+                        : [];
+                })()
             ]
         ];
     }
 
-    public function getAddress(){
+    public function getAddress()
+    {
         return $this->hasMany(Address::class, ['user_id' => 'id']);
     }
 
 
-
-    public static function findWithAddress($id){
+    public static function findWithAddress($id)
+    {
         return self::find()
             ->where('id = :id', [':id' => $id])
             ->with('address')
             ->one();
     }
 
-    public function disable(){
+    public function disable()
+    {
 
         $this->is_active = static::IS_DISABLE;
         return $this->save();
