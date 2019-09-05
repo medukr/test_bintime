@@ -40,12 +40,15 @@ class UsersSearch extends Users
      */
     public function search($params)
     {
-        $query = Users::find();
+        $query = Users::find()->where(['is_active' => Users::IS_ENABLE]);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 5,
+            ],
         ]);
 
         $this->load($params);
@@ -64,7 +67,7 @@ class UsersSearch extends Users
         ]);
 
         $query->andFilterWhere(['like', 'login', $this->login])
-            ->andFilterWhere(['like', 'password', $this->password])
+//            ->andFilterWhere(['like', 'password', $this->password])
             ->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'last_name', $this->last_name])
             ->andFilterWhere(['like', 'email', $this->email]);

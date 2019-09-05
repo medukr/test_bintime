@@ -8,14 +8,12 @@
 namespace app\controllers;
 
 
-use app\models\Address;
-use app\models\UserAndAddressForm;
+
 use app\models\Users;
 use app\models\UsersSearch;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 
 class MyController extends Controller
 {
@@ -23,12 +21,7 @@ class MyController extends Controller
     public function actionIndex(){
         $searchModel = new UsersSearch();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => Users::find(),
-            'pagination' => [
-                'pageSize' => 5,
-            ],
-        ]);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

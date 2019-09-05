@@ -21,13 +21,13 @@ use yii\helpers\Url;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-//        'filterModel' => $searchModel,
+        'filterModel' => $searchModel,
         'columns' => [
 //            ['class' => 'yii\grid\SerialColumn'],
 
             'id',
             'login',
-            'password',
+//            'password',
             [
                     'attribute' => 'name',
                     'value' => function ($data){

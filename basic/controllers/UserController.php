@@ -8,6 +8,7 @@
 namespace app\controllers;
 
 
+use app\models\Address;
 use app\models\UserAndAddressForm;
 use app\models\Users;
 use Yii;
@@ -43,7 +44,7 @@ class UserController extends Controller
         $model = $this->findModel($id);
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $model->getAddress(),
+            'query' => $model->getAddress()->where(['is_active' => Address::IS_ENABLE]),
             'pagination' => [
                 'pageSize' => 5,
             ],
