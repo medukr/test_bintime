@@ -9,14 +9,27 @@ namespace app\controllers;
 
 
 
-use app\models\Users;
+
 use app\models\UsersSearch;
 use Yii;
-use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 
 class MyController extends Controller
 {
+
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+            'captcha' => [
+                'class' => 'yii\captcha\CaptchaAction',
+                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+            ],
+        ];
+    }
+
 
     public function actionIndex(){
         $searchModel = new UsersSearch();

@@ -11,11 +11,25 @@ namespace app\controllers;
 use app\models\Address;
 use app\models\Users;
 use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 class AddressController extends Controller
 {
+
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
+
 
     public function actionCreate($id){
         $model = new Address();
@@ -56,7 +70,7 @@ class AddressController extends Controller
         ]);
     }
 
-    public function actionDelete($id){
+    public function actionDelete(){
 
         if (Yii::$app->request->post() && Yii::$app->request->validateCsrfToken()) {
 

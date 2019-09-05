@@ -13,11 +13,23 @@ use app\models\UserAndAddressForm;
 use app\models\Users;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 class UserController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
 
 
     public function actionCreate(){
@@ -74,8 +86,8 @@ class UserController extends Controller
         ]);
     }
 
-    //have to be POST
-    public function actionDelete($id){
+
+    public function actionDelete(){
 
         if (Yii::$app->request->post() && Yii::$app->request->validateCsrfToken()){
 
