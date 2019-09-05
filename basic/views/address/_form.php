@@ -13,15 +13,15 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin( ['method' => 'post']); ?>
 
-    <?= $form->field($model, 'post_index')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'post_index')->textInput(['maxlength' => true])->label('*'. $model->getAttributeLabel('post_index').':') ?>
 
-    <?= $form->field($model, 'country')->textInput(['maxlength' => true])?>
+    <?= $form->field($model, 'country')->textInput(['maxlength' => true])->label('*'. $model->getAttributeLabel('country').':')?>
 
-    <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'city')->textInput(['maxlength' => true])->label('*'. $model->getAttributeLabel('city').':') ?>
 
-    <?= $form->field($model, 'street')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'street')->textInput(['maxlength' => true])->label('*'. $model->getAttributeLabel('street').':') ?>
 
-    <?= $form->field($model, 'house')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'house')->textInput(['maxlength' => true])->label('*'. $model->getAttributeLabel('house').':') ?>
 
     <?= $form->field($model, 'office')->textInput(['maxlength' => true]) ?>
 

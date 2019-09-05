@@ -16,7 +16,6 @@ class AppUserSexBehavior extends Behavior
 
     public $attributes;
 
-
     public function events()
     {
         $events = [];
@@ -32,18 +31,13 @@ class AppUserSexBehavior extends Behavior
             case BaseActiveRecord::EVENT_AFTER_FIND :
                 $value = (function () use ($attribute){
                     switch ($attribute) {
+                        case Users::SEX_NULL: return 'Нет информации';
                         case Users::SEX_MAN: return 'Мужской';
                         case Users::SEX_WOMAN : return 'Женский';
-                        default: return 'не указано';
+                        default: return 'нет информации';
                     }
                 })();
                 break;
-//            case BaseActiveRecord::EVENT_BEFORE_INSERT :
-//                $value = htmlentities(trim($attribute), ENT_QUOTES, 'utf-8', false);
-//                break;
-//            case BaseActiveRecord::EVENT_BEFORE_UPDATE :
-//                $value = htmlentities(trim($attribute), ENT_QUOTES, 'utf-8', false);
-//                break;
             default:
                 $value = false;
         }
@@ -57,17 +51,4 @@ class AppUserSexBehavior extends Behavior
         }
     }
 
-//    public function beforeUpdate()
-//    {
-//        foreach ($this->attributes[BaseActiveRecord::EVENT_BEFORE_UPDATE] as $attribute) {
-//            $this->owner->$attribute = $this->getValue($this->owner->$attribute, BaseActiveRecord::EVENT_BEFORE_UPDATE);
-//        }
-//    }
-//
-//    public function beforeInsert()
-//    {
-//        foreach ($this->attributes[BaseActiveRecord::EVENT_BEFORE_INSERT] as $attribute) {
-//            $this->owner->$attribute = $this->getValue($this->owner->$attribute, BaseActiveRecord::EVENT_BEFORE_INSERT);
-//        }
-//    }
 }

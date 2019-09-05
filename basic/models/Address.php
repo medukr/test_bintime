@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use phpDocumentor\Reflection\Types\This;
 use Yii;
 
 /**
@@ -15,23 +16,24 @@ use Yii;
  * @property string $street
  * @property string $house
  * @property int $office
+ * @property int $is_active
  */
 class Address extends \yii\db\ActiveRecord
 {
     const IS_ENABLE = 1;
     const IS_DISABLE = 0;
 
-
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public static function tableName()
     {
         return 'address';
     }
 
+
     /**
-     * {@inheritdoc}
+     * @return array
      */
     public function rules()
     {
@@ -39,35 +41,57 @@ class Address extends \yii\db\ActiveRecord
             [['user_id', 'post_index', 'country', 'city', 'street', 'house'], 'required'],
             [['user_id', 'office'], 'integer'],
             [['post_index'], 'string', 'max' => 5],
+            [['post_index'], 'integer'],
             [['country'], 'string', 'max' => 2],
             [['city', 'street', 'house'], 'string', 'max' => 255],
+            [['country'], 'filter', 'filter' => function ($value) {
+                return strtoupper($value);}
+            ],
+            [['city', 'street'], 'filter', 'filter' => function($value){
+                return ucfirst($value);
+            }],
         ];
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getUser(){
         return $this->hasOne(Users::class, ['id' => 'user_id']);
     }
 
+    /**
+     * @return bool
+     */
     public function disable(){
        $this->is_active = static::IS_DISABLE;
 
        return $this->save();
     }
 
+
     /**
-     * {@inheritdoc}
+     * @return array
      */
     public function attributeLabels()
     {
-        return [
+        return array_merge([
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'post_index' => 'Post Index',
-            'country' => 'Country',
-            'city' => 'City',
-            'street' => 'Street',
-            'house' => 'House',
-            'office' => 'Office',
+            'user_id' => 'ID Пользователя',
+
+        ],
+            static::getFormAttributes()
+        );
+    }
+
+    public static function getFormAttributes(){
+        return [
+            'post_index' => 'Почтовый индекс',
+            'country' => 'Страна',
+            'city' => 'Город',
+            'street' => 'Улица',
+            'house' => 'Дом',
+            'office' => 'Оффис/Квартира',
         ];
     }
 }

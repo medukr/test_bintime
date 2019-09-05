@@ -37,7 +37,14 @@ use yii\helpers\Url;
 
             ],
             'last_name',
-            'sex',
+
+            [
+                'attribute' => 'sex',
+                'filter' => Html::activeDropDownList($searchModel, 'sex', [''=> 'без фильтра', 0 => 'Не указ', 1 => 'Мужской', 2 => 'Женский'], [
+                        'class' => 'dropdown btn btn-secondary'
+                ])
+
+            ],
             'created_ad',
             'email:email',
             ['class' => 'yii\grid\ActionColumn',

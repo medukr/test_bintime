@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = 'Create';
 <div class="users-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    <h3>* - обязательные для заполнения поля</h3>
 
     <?= $this->render('address_form', [
         'model' => $model,

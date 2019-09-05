@@ -13,17 +13,18 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin( ['method' => 'post']); ?>
 
-    <?= $form->field($model, 'login')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'login')->textInput(['maxlength' => true])->label('*'. $model->getAttributeLabel('login').':') ?>
 
-    <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('*'. $model->getAttributeLabel('name').':') ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'last_name')->textInput(['maxlength' => true])->label('*'. $model->getAttributeLabel('last_name').':') ?>
 
-    <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'sex')->radioList([1 => 'Мужской', 2 => 'Женский'])->label('Укажите пол') ?>
+    <?= $form->field($model, 'sex')->radioList([
+        0 => 'Нет информации',
+        1 => 'Мужской',
+        2 => 'Женский'])->label('*Укажите пол:') ?>
     
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'email')->textInput(['maxlength' => true])->label('*'. $model->getAttributeLabel('email').':') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

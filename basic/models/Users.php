@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\components\{AppHtmlentitiesBehavior, AppUserSexBehavior};
+use phpDocumentor\Reflection\Types\Static_;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -24,11 +25,10 @@ use yii\db\Expression;
 class Users extends \yii\db\ActiveRecord
 {
 
-
     const IS_ENABLE = 1;
     const IS_DISABLE = 0;
 
-//    const SEX_NAN = 0;
+    const SEX_NULL = 0;
     const SEX_MAN = 1;
     const SEX_WOMAN = 2;
 
@@ -48,11 +48,14 @@ class Users extends \yii\db\ActiveRecord
         return [
             [['login', 'password', 'name', 'last_name', 'sex', 'email'], 'required'],
             [['name', 'last_name', 'email'], 'trim'],
+            [['name', 'last_name'], 'filter', 'filter' => function($value) {
+                return ucfirst($value);
+            }],
             [['sex'], 'integer'],
             [['created_ad'], 'safe'],
             [['name', 'last_name', 'email'], 'string', 'max' => 255],
-            [['login'], 'unique'],
-            [['email'], 'unique'],
+            [['login', 'email'], 'unique'],
+            [['email'], 'email'],
             [['login'], 'string', 'length' => [4, 255]],
             [['password'], 'string', 'length' => [6, 255]]
         ];
@@ -116,8 +119,14 @@ class Users extends \yii\db\ActiveRecord
      */
     public function attributeLabels()
     {
-        return [
+        return array_merge([
             'id' => 'ID',
+        ],
+        static::getFormAttributes());
+    }
+
+    public static function getFormAttributes(){
+        return [
             'login' => 'Логин',
             'password' => 'Пароль',
             'name' => 'Имя',

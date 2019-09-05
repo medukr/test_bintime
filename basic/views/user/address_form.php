@@ -26,27 +26,30 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin( ['method' => 'post']); ?>
 
-    <?= $form->field($model, 'login')->textInput(['maxlength' => true])->label('* Логин:') ?>
+    <?= $form->field($model, 'login')->textInput(['maxlength' => true])->label('*'. $model->getAttributeLabel('login').':') ?>
 
-    <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'password')->passwordInput(['maxlength' => true])->label('*'. $model->getAttributeLabel('password').':') ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('*'. $model->getAttributeLabel('name').':') ?>
 
-    <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'last_name')->textInput(['maxlength' => true])->label('*'. $model->getAttributeLabel('last_name').':') ?>
 
-    <?= $form->field($model, 'sex')->radioList([1 => 'Мужской', 2 => 'Женский'])->label('Укажите пол') ?>
+    <?= $form->field($model, 'sex')->radioList([
+        0 => 'Нет информации',
+        1 => 'Мужской',
+        2 => 'Женский'])->label('*Укажите пол:') ?>
 
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'email')->textInput(['maxlength' => true])->label('*'. $model->getAttributeLabel('email').':') ?>
 
-    <?= $form->field($model, 'post_index')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'post_index')->textInput(['maxlength' => true])->label('*'. $model->getAttributeLabel('post_index').':') ?>
 
-    <?= $form->field($model, 'country')->textInput(['maxlength' => true])?>
+    <?= $form->field($model, 'country')->textInput(['maxlength' => true])->label('*'. $model->getAttributeLabel('country').':')?>
 
-    <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'city')->textInput(['maxlength' => true])->label('*'. $model->getAttributeLabel('city').':') ?>
 
-    <?= $form->field($model, 'street')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'street')->textInput(['maxlength' => true])->label('*'. $model->getAttributeLabel('street').':') ?>
 
-    <?= $form->field($model, 'house')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'house')->textInput(['maxlength' => true])->label('*'. $model->getAttributeLabel('house').':') ?>
     
     <?= $form->field($model, 'office')->textInput(['maxlength' => true]) ?>
 

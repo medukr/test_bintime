@@ -43,6 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'city',
             'street',
             'house',
+            'office',
 
             ['class' => 'yii\grid\ActionColumn',
                 'template' => '{update}{delete}',

@@ -39,7 +39,7 @@ class UserAndAddressForm extends Model
             [['login', 'password', 'name', 'last_name', 'sex', 'email'], 'required'],
             [['name', 'last_name', 'email'], 'trim'],
             [['sex'], 'integer'],
-
+            [['email'], 'email'],
             [['name', 'last_name', 'email'], 'string', 'max' => 255],
 
             [['login'], 'string', 'length' => [4, 255]],
@@ -116,21 +116,9 @@ class UserAndAddressForm extends Model
 
     public function attributeLabels()
     {
-        return [
-
-            'login' => 'Логин',
-            'password' => 'Пароль',
-            'name' => 'Имя',
-            'last_name' => 'Фамилия',
-            'sex' => 'Пол',
-            'email' => 'Email',
-            'post_index' => 'Почтовый индекс',
-            'country' => 'Страна',
-            'city' => 'Город',
-            'street' => 'Улица',
-            'house' => 'Дом',
-            'office' => 'Оффис/Квартира',
-        ];
+        return array_merge(
+            Users::getFormAttributes(),
+            Address::getFormAttributes());
     }
 
 
