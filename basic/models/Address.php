@@ -23,18 +23,13 @@ class Address extends \yii\db\ActiveRecord
     const IS_ENABLE = 1;
     const IS_DISABLE = 0;
 
-    /**
-     * @return string
-     */
+
     public static function tableName()
     {
         return 'address';
     }
 
 
-    /**
-     * @return array
-     */
     public function rules()
     {
         return array_merge(
@@ -64,16 +59,11 @@ class Address extends \yii\db\ActiveRecord
     }
 
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getUser(){
         return $this->hasOne(Users::class, ['id' => 'user_id']);
     }
 
-    /**
-     * @return bool
-     */
+
     public function disable(){
        $this->is_active = static::IS_DISABLE;
 
@@ -81,9 +71,6 @@ class Address extends \yii\db\ActiveRecord
     }
 
 
-    /**
-     * @return array
-     */
     public function attributeLabels()
     {
         return array_merge([
@@ -94,6 +81,7 @@ class Address extends \yii\db\ActiveRecord
             self::getFormAttributes()
         );
     }
+
 
     public static function getFormAttributes(){
         return [

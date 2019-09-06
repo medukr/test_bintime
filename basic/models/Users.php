@@ -33,17 +33,12 @@ class Users extends \yii\db\ActiveRecord
         2 => 'Женский'
     ];
 
-    /**
-     * {@inheritdoc}
-     */
+
     public static function tableName()
     {
         return 'users';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return array_merge(
@@ -118,9 +113,7 @@ class Users extends \yii\db\ActiveRecord
         return $this->save();
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function attributeLabels()
     {
         return array_merge([

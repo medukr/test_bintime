@@ -63,11 +63,9 @@ class UsersSearch extends Users
         $query->andFilterWhere([
             'id' => $this->id,
             'sex' => $this->sex,
-//            'created_ad' => $this->created_ad,
         ]);
 
         $query->andFilterWhere(['like', 'login', $this->login])
-//            ->andFilterWhere(['like', 'password', $this->password])
             ->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'last_name', $this->last_name])
             ->andFilterWhere(['like', 'email', $this->email]);

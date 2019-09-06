@@ -7,9 +7,6 @@
 
 namespace app\controllers;
 
-
-
-
 use app\models\UsersSearch;
 use Yii;
 use yii\web\Controller;
