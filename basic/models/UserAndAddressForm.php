@@ -70,7 +70,7 @@ class UserAndAddressForm extends Model
             $address = $this->getAddressModel();
 
             $user->login = $this->login;
-            $user->password = $this->password;
+            $user->setPassword($this->password);
             $user->name = $this->name;
             $user->last_name = $this->last_name;
             $user->sex = $this->sex;

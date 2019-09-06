@@ -122,11 +122,9 @@ class Users extends \yii\db\ActiveRecord
 
     public function disable()
     {
-
         $this->is_active = self::IS_DISABLE;
         return $this->save();
     }
-
 
     /**
      * {@inheritdoc}
@@ -153,6 +151,11 @@ class Users extends \yii\db\ActiveRecord
 
     public function getUserSexConstant(){
         return self::USER_SEX;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = Yii::$app->security->generatePasswordHash($password);
     }
 
 }
