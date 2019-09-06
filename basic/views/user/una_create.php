@@ -12,7 +12,7 @@ use yii\helpers\Html;
 
 $this->title = 'Добавить пользователя:';
 
-$this->params['breadcrumbs'][] = 'Create';
+$this->params['breadcrumbs'][] = 'Добавить';
 
 ?>
 <div class="users-create">

@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Users */
 
-$this->title = 'Add  User Address: ' .$user->name;
-$this->params['breadcrumbs'][] = ['label' => 'User: ' . $user->name, 'url' => ['user/view', 'id' => $user->id]];
-$this->params['breadcrumbs'][] = 'Create address';
+$this->title = 'Добавить адрес пользователя: ' .$user->name;
+$this->params['breadcrumbs'][] = ['label' => 'Пользователь: ' . $user->name, 'url' => ['user/view', 'id' => $user->id]];
+$this->params['breadcrumbs'][] = 'Добавить адрес';
 ?>
 <div class="users-update">
 

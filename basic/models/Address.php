@@ -43,11 +43,11 @@ class Address extends \yii\db\ActiveRecord
                 ['user_id', 'required'],
                 ['user_id', 'integer'],
                 [['country'], 'filter', 'filter' => function ($value) {
-                    return strtoupper($value);
+                    return mb_strtoupper($value, "UTF-8");
                 }
                 ],
                 [['city', 'street'], 'filter', 'filter' => function ($value) {
-                    return ucfirst($value);
+                    return mb_convert_case($value, MB_CASE_TITLE, "UTF-8");
                 }],
             ]
         );

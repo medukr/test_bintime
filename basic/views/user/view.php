@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Users */
 
-$this->title = 'User: ' . $model->name;
+$this->title = 'Пользователь: ' . $model->name;
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -69,6 +69,6 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 
     <p>
-        <?= Html::a('Добавить адресс', ['address/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить адрес', ['address/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
     </p>
 </div>
