@@ -112,14 +112,6 @@ class Users extends \yii\db\ActiveRecord
     }
 
 
-    public static function findWithAddress($id)
-    {
-        return self::find()
-            ->where('id = :id', [':id' => $id])
-            ->with('address')
-            ->one();
-    }
-
     public function disable()
     {
         $this->is_active = self::IS_DISABLE;

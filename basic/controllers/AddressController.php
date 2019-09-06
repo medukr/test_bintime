@@ -76,11 +76,16 @@ class AddressController extends Controller
 
             $model = $this->findModel(Yii::$app->request->post('id'));
 
-            if ($model->disable()) {
-                Yii::$app->session->setFlash('success', 'Адресс успешно удален');
+            if (count($model->getUser()->one()->getAddress()->all()) > 1) {
+                if ($model->disable()) {
+                    Yii::$app->session->setFlash('success', 'Адресс успешно удален');
+                } else {
+                    Yii::$app->session->setFlash('error', 'Ошибка! Не удалось удалить');
+                }
             } else {
-                Yii::$app->session->setFlash('error', 'Ошибка! Не удалось удалить');
+                Yii::$app->session->setFlash('error', 'Пользователь не может быт без адреса');
             }
+
         }
 
         return $this->redirect(['user/view' , 'id' => $model->user_id]);
