@@ -13,6 +13,12 @@ use yii\base\Model;
 class UserAndAddressForm extends Model
 {
 
+    const USER_MODEL_NAME = Users::class;
+    const ADDRESS_MODEL_NAME = Address::class;
+
+    private $_user;
+    private $_address;
+
     public $user_id;
 
 //User
@@ -34,48 +40,34 @@ class UserAndAddressForm extends Model
 
     public function rules()
     {
-        return [
-            //User
-            [['login', 'password', 'name', 'last_name', 'sex', 'email'], 'required'],
-            [['name', 'last_name', 'email'], 'trim'],
-            [['sex'], 'integer'],
-            [['email'], 'email'],
-            [['name', 'last_name', 'email'], 'string', 'max' => 255],
+        return array_merge(
+            (self::USER_MODEL_NAME)::getFormRules(),
+            (self::ADDRESS_MODEL_NAME)::getFormRules(),
+            [
+                [['login','email'], 'validateUniqueUsers'],
 
-            [['login'], 'string', 'length' => [4, 255]],
-            [['login','email'], 'validateUniqueUsers'],
-            [['password'], 'string', 'length' => [6, 255]],
+            ]
 
-            //Address
-            [['post_index', 'country', 'city', 'street', 'house'], 'required'],
-            [['user_id', 'office'], 'integer'],
-            [['post_index'], 'string', 'max' => 5],
-            [['post_index'], 'integer'],
-            [['country'], 'string', 'max' => 2],
-            [['city', 'street', 'house'], 'string', 'max' => 255],
-        ];
+        );
+
     }
-
-
-
 
     public function validateUniqueUsers($attribute, $params, $obj)
     {
-        $model = new Users();
+        $model = $this->getUserModel();
         $model->$attribute = $this->$attribute;
 
         if (!$model->validate($attribute)) {
             $this->addError($attribute, 'Неверный логин или email.');
         }
 
-
     }
 
 
     public function create(){
         if ($this->validate()){
-            $user = new Users();
-            $address = new Address();
+            $user = $this->getUserModel();
+            $address = $this->getAddressModel();
 
             $user->login = $this->login;
             $user->password = $this->password;
@@ -83,7 +75,6 @@ class UserAndAddressForm extends Model
             $user->last_name = $this->last_name;
             $user->sex = $this->sex;
             $user->email = $this->email;
-
 
             $address->user_id = 1;
             $address->post_index = $this->post_index;
@@ -98,7 +89,7 @@ class UserAndAddressForm extends Model
                     if ($user->save()) {
                         $address->user_id = $user->id;
                         $this->user_id = $user->id;
-                        //А что если не сохранит, а пользователь уже сохранен;
+                        //А что если не сохранит, а пользователь уже сохранен,нужна транзакция?;
                         if ($address->save()) {
                             return $this;
                         }
@@ -117,8 +108,26 @@ class UserAndAddressForm extends Model
     public function attributeLabels()
     {
         return array_merge(
-            Users::getFormAttributes(),
-            Address::getFormAttributes());
+            (self::USER_MODEL_NAME)::getFormAttributes(),
+            (self::ADDRESS_MODEL_NAME)::getFormAttributes());
+    }
+
+    public function getUserModel(){
+        if ($this->_user === null) {
+            $model_name = self::USER_MODEL_NAME;
+            $this->_user = new $model_name();
+        }
+
+        return $this->_user;
+    }
+
+    public function getAddressModel(){
+        if ($this->_address === null) {
+            $model_name = self::ADDRESS_MODEL_NAME;
+            $this->_address = new $model_name() ;
+        }
+
+        return $this->_address;
     }
 
 

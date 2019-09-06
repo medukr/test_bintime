@@ -2,6 +2,7 @@
 
 $this->title = 'Users';
 
+use app\models\Users;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -24,25 +25,23 @@ use yii\helpers\Url;
         'filterModel' => $searchModel,
         'columns' => [
 //            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'login',
-//            'password',
             [
                     'attribute' => 'name',
                     'value' => function ($data){
                         return ucfirst($data->name);
                     },
                     'format' => 'text'
-
             ],
             'last_name',
-
             [
                 'attribute' => 'sex',
-                'filter' => Html::activeDropDownList($searchModel, 'sex', [''=> 'без фильтра', 0 => 'Не указ', 1 => 'Мужской', 2 => 'Женский'], [
-                        'class' => 'dropdown btn btn-secondary'
-                ])
+                'filter' => Html::activeDropDownList(
+                    $searchModel,
+                    'sex',
+                    array_merge(['' => 'без фильтра'], $searchModel->getUserSexConstant())
+                    , ['class' => 'dropdown btn btn-secondary'])
 
             ],
             'created_ad',

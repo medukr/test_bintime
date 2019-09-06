@@ -19,10 +19,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'last_name')->textInput(['maxlength' => true])->label('*'. $model->getAttributeLabel('last_name').':') ?>
 
-    <?= $form->field($model, 'sex')->radioList([
-        0 => 'Нет информации',
-        1 => 'Мужской',
-        2 => 'Женский'])->label('*Укажите пол:') ?>
+    <?= $form->field($model, 'sex')->radioList($model->getUserSexConstant())->label('*Укажите пол:') ?>
     
     <?= $form->field($model, 'email')->textInput(['maxlength' => true])->label('*'. $model->getAttributeLabel('email').':') ?>
 

@@ -27,15 +27,14 @@ class AppUserSexBehavior extends Behavior
 
     public function getValue($attribute, $event)
     {
+        //Свич позволит легко расширить количество ивентов, без необходимости переписывать весь метод
         switch ($event) {
             case BaseActiveRecord::EVENT_AFTER_FIND :
                 $value = (function () use ($attribute){
-                    switch ($attribute) {
-                        case Users::SEX_NULL: return 'Нет информации';
-                        case Users::SEX_MAN: return 'Мужской';
-                        case Users::SEX_WOMAN : return 'Женский';
-                        default: return 'нет информации';
+                    foreach (Users::USER_SEX as $key => $item) {
+                        if ($key === $attribute) return $item;
                     }
+                    return null;
                 })();
                 break;
             default:

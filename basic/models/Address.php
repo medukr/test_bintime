@@ -37,21 +37,32 @@ class Address extends \yii\db\ActiveRecord
      */
     public function rules()
     {
+        return array_merge(
+            self::getFormRules(),
+            [
+                ['user_id', 'required'],
+                ['user_id', 'integer'],
+                [['country'], 'filter', 'filter' => function ($value) {
+                    return strtoupper($value);
+                }
+                ],
+                [['city', 'street'], 'filter', 'filter' => function ($value) {
+                    return ucfirst($value);
+                }],
+            ]
+        );
+    }
+
+    public static function getFormRules(){
         return [
-            [['user_id', 'post_index', 'country', 'city', 'street', 'house'], 'required'],
-            [['user_id', 'office'], 'integer'],
+            [['post_index', 'country', 'city', 'street', 'house'], 'required'],
             [['post_index'], 'string', 'max' => 5],
-            [['post_index'], 'integer'],
+            [['post_index','office'], 'integer'],
             [['country'], 'string', 'max' => 2],
             [['city', 'street', 'house'], 'string', 'max' => 255],
-            [['country'], 'filter', 'filter' => function ($value) {
-                return strtoupper($value);}
-            ],
-            [['city', 'street'], 'filter', 'filter' => function($value){
-                return ucfirst($value);
-            }],
         ];
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -80,7 +91,7 @@ class Address extends \yii\db\ActiveRecord
             'user_id' => 'ID Пользователя',
 
         ],
-            static::getFormAttributes()
+            self::getFormAttributes()
         );
     }
 
