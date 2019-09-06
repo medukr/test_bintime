@@ -2,8 +2,7 @@
 
 namespace app\models;
 
-use app\components\{AppHtmlentitiesBehavior, AppUserSexBehavior};
-use phpDocumentor\Reflection\Types\Static_;
+use app\components\{AppHtmlentitiesBehavior, AppUserSexBehavior, AppDateFormatterBehaviour};
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -98,7 +97,12 @@ class Users extends \yii\db\ActiveRecord
                         ? [ActiveRecord::EVENT_AFTER_FIND => ['sex']]
                         : [];
                 })()
+            ],
+            [
+                'class' => AppDateFormatterBehaviour::class,
+                'attributes' => [ ActiveRecord::EVENT_AFTER_FIND => ['created_ad']]
             ]
+
         ];
     }
 
@@ -150,4 +154,5 @@ class Users extends \yii\db\ActiveRecord
     public function getUserSexConstant(){
         return self::USER_SEX;
     }
+
 }

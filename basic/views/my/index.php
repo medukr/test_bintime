@@ -44,7 +44,6 @@ use yii\helpers\Url;
                     , ['class' => 'dropdown btn btn-secondary'])
 
             ],
-            'created_ad',
             'email:email',
             ['class' => 'yii\grid\ActionColumn',
                 'template' => '<div class="col col-12">{view} {update} {delete}</div>',
